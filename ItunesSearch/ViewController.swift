@@ -12,6 +12,7 @@ class ViewController: BaseViewController {
     private let searchField: UITextField = .init().then { v in
         v.placeholder = "search"
         v.backgroundColor = .lightGray
+        v.textColor = .white
         v.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 0))
         v.leftViewMode = .always
     }
