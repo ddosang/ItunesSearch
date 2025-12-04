@@ -22,6 +22,8 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     func setUpNaviation() {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        navigationController?.navigationBar.isHidden = true
     }
     
     func setup() {
