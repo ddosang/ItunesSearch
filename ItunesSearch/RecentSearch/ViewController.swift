@@ -9,6 +9,14 @@ import UIKit
 
 class ViewController: BaseViewController {
     
+    // MARK: - Data
+    
+    private let recentSearchList: [String] = ["ta1", "ta2", "ta3", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"]
+    private lazy var currentRecentSearchList: [String] = recentSearchList
+    
+    
+    // MARK: - View
+    
     private let searchField: UITextField = .init().then { v in
         v.placeholder = "search"
         v.backgroundColor = .lightGray
@@ -20,15 +28,6 @@ class ViewController: BaseViewController {
     private let recentTableView: UITableView = .init().then { v in
         v.backgroundColor = .white
         v.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
-    }
-    
-    private let recentSearchList: [String] = ["ta1", "ta2", "ta3", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"]
-    private lazy var currentRecentSearchList: [String] = recentSearchList
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     override func setup() {
@@ -55,9 +54,25 @@ class ViewController: BaseViewController {
             make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-
 }
 
+// MARK: - View Life Cycle
+extension ViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+}
+
+// MARK: - navigation
+extension ViewController {
+    func goToSearchResult(searchWord: String) {
+        let vc = SearchResultViewController(text: searchWord)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+// MARK: - Delgate
 extension ViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // 251206
@@ -73,8 +88,12 @@ extension ViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        // TODO: api 호출
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else {
+            // TODO: - 검색어를 입력해주세요 토스트 (개선)
+            return true
+        }
+        goToSearchResult(searchWord: text)
         return true
     }
 }
@@ -96,7 +115,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        searchField.text = currentRecentSearchList[indexPath.row]
-        searchField.endEditing(true)
+        let text = currentRecentSearchList[indexPath.row]
+        searchField.text = text
+        goToSearchResult(searchWord: text)
     }
 }

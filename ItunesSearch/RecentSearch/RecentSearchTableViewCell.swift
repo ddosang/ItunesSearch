@@ -18,6 +18,7 @@ class RecentSearchTableViewCell: BaseTableViewCell {
     }
     
     override func setup() {
+        contentView.backgroundColor = .white
         contentView.addSubview(titleLabel)
     }
     
