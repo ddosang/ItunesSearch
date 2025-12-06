@@ -19,6 +19,7 @@
 		AE0AA5092BBD1CDD006E83E5 /* UIButton+setBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0AA5062BBD1CDD006E83E5 /* UIButton+setBackgroundColor.swift */; };
 		AE0AA50A2BBD1CDD006E83E5 /* UIFont+preferredFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0AA5072BBD1CDD006E83E5 /* UIFont+preferredFont.swift */; };
 		AE0AA50B2BBD1CDD006E83E5 /* UIImageView+load.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0AA5082BBD1CDD006E83E5 /* UIImageView+load.swift */; };
+		AE5BE8C82EE461600075325B /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5BE8C72EE461600075325B /* RecentSearchTableViewCell.swift */; };
 		AEDFB4012BBD1DC700D8A740 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = AEDFB4002BBD1DC700D8A740 /* SnapKit */; };
 		AEDFB4042BBD1DD300D8A740 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = AEDFB4032BBD1DD300D8A740 /* Then */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		AE0AA5062BBD1CDD006E83E5 /* UIButton+setBackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+setBackgroundColor.swift"; sourceTree = "<group>"; };
 		AE0AA5072BBD1CDD006E83E5 /* UIFont+preferredFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+preferredFont.swift"; sourceTree = "<group>"; };
 		AE0AA5082BBD1CDD006E83E5 /* UIImageView+load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+load.swift"; sourceTree = "<group>"; };
+		AE5BE8C72EE461600075325B /* RecentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,10 +74,10 @@
 		AE0AA4E62BBD1C33006E83E5 /* ItunesSearch */ = {
 			isa = PBXGroup;
 			children = (
+				AE5BE8C42EE4612C0075325B /* RecentSearch */,
 				AE0AA4FC2BBD1CD5006E83E5 /* Base */,
 				AE0AA5052BBD1CDD006E83E5 /* Util */,
 				AE0AA4FB2BBD1C8E006E83E5 /* Supporting Files */,
-				AE0AA4EB2BBD1C33006E83E5 /* ViewController.swift */,
 				AE0AA4F02BBD1C35006E83E5 /* Assets.xcassets */,
 				AE0AA4F22BBD1C35006E83E5 /* LaunchScreen.storyboard */,
 				AE0AA4F52BBD1C35006E83E5 /* Info.plist */,
@@ -111,6 +113,15 @@
 				AE0AA5082BBD1CDD006E83E5 /* UIImageView+load.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		AE5BE8C42EE4612C0075325B /* RecentSearch */ = {
+			isa = PBXGroup;
+			children = (
+				AE0AA4EB2BBD1C33006E83E5 /* ViewController.swift */,
+				AE5BE8C72EE461600075325B /* RecentSearchTableViewCell.swift */,
+			);
+			path = RecentSearch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 			files = (
 				AE0AA4EC2BBD1C33006E83E5 /* ViewController.swift in Sources */,
 				AE0AA5012BBD1CD5006E83E5 /* BaseViewController.swift in Sources */,
+				AE5BE8C82EE461600075325B /* RecentSearchTableViewCell.swift in Sources */,
 				AE0AA4E82BBD1C33006E83E5 /* AppDelegate.swift in Sources */,
 				AE0AA50A2BBD1CDD006E83E5 /* UIFont+preferredFont.swift in Sources */,
 				AE0AA5022BBD1CD5006E83E5 /* BaseTableViewCell.swift in Sources */,

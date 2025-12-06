@@ -10,6 +10,9 @@ import SnapKit
 import Then
 
 class BaseView: UIView {
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     // xib 로 만들어서 불러올 때
     override func awakeFromNib() {

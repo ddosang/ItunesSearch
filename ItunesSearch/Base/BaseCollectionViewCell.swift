@@ -10,6 +10,9 @@ import SnapKit
 import Then
 
 class BaseCollectionViewCell: UICollectionViewCell {
+    static var identifier: String {
+        return String(describing: self)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
