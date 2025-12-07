@@ -22,6 +22,8 @@
 		AE3DDC462EE4729C00860911 /* iTunesSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3DDC452EE4729C00860911 /* iTunesSearchResult.swift */; };
 		AE5BE8C82EE461600075325B /* RecentSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5BE8C72EE461600075325B /* RecentSearchTableViewCell.swift */; };
 		AED292A12EE58AA400384D6A /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED292A02EE58AA400384D6A /* TrackTableViewCell.swift */; };
+		AED292A52EE5B8A800384D6A /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED292A42EE5B8A800384D6A /* TrackViewController.swift */; };
+		AED292A72EE5BE6A00384D6A /* RecentSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED292A62EE5BE5F00384D6A /* RecentSearch.swift */; };
 		AEDFB4012BBD1DC700D8A740 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = AEDFB4002BBD1DC700D8A740 /* SnapKit */; };
 		AEDFB4042BBD1DD300D8A740 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = AEDFB4032BBD1DD300D8A740 /* Then */; };
 /* End PBXBuildFile section */
@@ -44,6 +46,8 @@
 		AE3DDC452EE4729C00860911 /* iTunesSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesSearchResult.swift; sourceTree = "<group>"; };
 		AE5BE8C72EE461600075325B /* RecentSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchTableViewCell.swift; sourceTree = "<group>"; };
 		AED292A02EE58AA400384D6A /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
+		AED292A42EE5B8A800384D6A /* TrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
+		AED292A62EE5BE5F00384D6A /* RecentSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +82,7 @@
 		AE0AA4E62BBD1C33006E83E5 /* ItunesSearch */ = {
 			isa = PBXGroup;
 			children = (
-				AE3B8CD62EE47872009F9DB7 /* SearchResultList */,
+				AE3B8CD62EE47872009F9DB7 /* Track */,
 				AE5BE8C42EE4612C0075325B /* RecentSearch */,
 				AE0AA4FC2BBD1CD5006E83E5 /* Base */,
 				AE0AA5052BBD1CDD006E83E5 /* Util */,
@@ -120,16 +124,18 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		AE3B8CD62EE47872009F9DB7 /* SearchResultList */ = {
+		AE3B8CD62EE47872009F9DB7 /* Track */ = {
 			isa = PBXGroup;
 			children = (
+				AED292A42EE5B8A800384D6A /* TrackViewController.swift */,
 			);
-			path = SearchResultList;
+			path = Track;
 			sourceTree = "<group>";
 		};
 		AE5BE8C42EE4612C0075325B /* RecentSearch */ = {
 			isa = PBXGroup;
 			children = (
+				AED292A62EE5BE5F00384D6A /* RecentSearch.swift */,
 				AE0AA4EB2BBD1C33006E83E5 /* ViewController.swift */,
 				AE5BE8C72EE461600075325B /* RecentSearchTableViewCell.swift */,
 				AE3DDC452EE4729C00860911 /* iTunesSearchResult.swift */,
@@ -218,6 +224,7 @@
 			files = (
 				AE0AA4EC2BBD1C33006E83E5 /* ViewController.swift in Sources */,
 				AE0AA5012BBD1CD5006E83E5 /* BaseViewController.swift in Sources */,
+				AED292A52EE5B8A800384D6A /* TrackViewController.swift in Sources */,
 				AE5BE8C82EE461600075325B /* RecentSearchTableViewCell.swift in Sources */,
 				AE0AA4E82BBD1C33006E83E5 /* AppDelegate.swift in Sources */,
 				AE0AA50A2BBD1CDD006E83E5 /* UIFont+preferredFont.swift in Sources */,
@@ -228,6 +235,7 @@
 				AE0AA5042BBD1CD5006E83E5 /* BaseView.swift in Sources */,
 				AE0AA4EA2BBD1C33006E83E5 /* SceneDelegate.swift in Sources */,
 				AE0AA5032BBD1CD5006E83E5 /* BaseCollectionViewCell.swift in Sources */,
+				AED292A72EE5BE6A00384D6A /* RecentSearch.swift in Sources */,
 				AE3DDC462EE4729C00860911 /* iTunesSearchResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

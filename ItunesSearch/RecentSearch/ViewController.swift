@@ -10,11 +10,9 @@ import UIKit
 class ViewController: BaseViewController {
     
     // MARK: - Data
-    private var recentSearchList: [String] = ["taeyeon", "yoona", "wendy", "asepa", "손예진", "김태연", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"] {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+    private var recentSearchList: [String] {
+        get {
+            RecentSearch.recentSearchList.load()
         }
     }
     private lazy var currentRecentSearchList: [String] = recentSearchList
@@ -194,10 +192,7 @@ extension ViewController: UITextFieldDelegate {
         isFocusOnSearchField = false
         searchField.resignFirstResponder()
         
-        if let textIndex = recentSearchList.firstIndex(of: text) {
-            recentSearchList.remove(at: textIndex)
-        }
-        recentSearchList.insert(text, at: 0)
+        RecentSearch.recentSearchList.add(text)
         search(with: text) { [weak self] tracks in
             guard let self else { return }
             self.trackList = tracks
@@ -211,6 +206,7 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
+// TODO: - 최근 검색어 삭제 기능
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return isFocusOnSearchField ? currentRecentSearchList.count : trackList.count
