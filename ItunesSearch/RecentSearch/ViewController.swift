@@ -10,7 +10,6 @@ import UIKit
 class ViewController: BaseViewController {
     
     // MARK: - Data
-    
     private let recentSearchList: [String] = ["taeyeon", "yoona", "wendy", "asepa", "손예진", "김태연", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"]
     private lazy var currentRecentSearchList: [String] = recentSearchList
     
@@ -30,8 +29,9 @@ class ViewController: BaseViewController {
         }
     }
     
-    // MARK: - View
+    var cache: [String: [Track]] = [:]
     
+    // MARK: - View
     private let searchField: UITextField = .init().then { v in
         v.placeholder = "search"
         v.backgroundColor = .lightGray
@@ -97,7 +97,7 @@ extension ViewController {
 //        dataTask.resume()
 //    }
     
-    private func search(with text: String, callback: (([Track]) -> Void)?) {
+    private func search(with text: String, limit: Int = 20, callback: (([Track]) -> Void)?) {
         func reformatText(_ text: String) -> String {
             return text.replacing("+", with: " ")
         }
@@ -117,24 +117,32 @@ extension ViewController {
             return url
         }
         
+        if let tracks = cache[text],
+           tracks.count == limit {
+            print("이미 불러왔던 데이터입니다.")
+            callback?(tracks)
+            return
+        }
+        
         let parameter: [String: String] = [
 //            "media" : "music",
             "country" : "KR",
-            "limit" : "20",
+            "limit" : String(limit),
             "term" : reformatText(text)
         ]
         print("parameter = \(parameter)")
         
         guard let url = URL(string: makeURLString(parameter: parameter)) else { return }
         let session = URLSession(configuration: .default)
-        let dataTask: Void = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+        let dataTask: Void = session.dataTask(with: url) { [weak self] (data: Data?, response: URLResponse?, error: Error?) in
+            guard let self else { return }
             guard let data else {
                 print("get data empty")
                 return
             }
             
             if let jsonString = String(data: data, encoding: .utf8) {
-                print("📦 받은 데이터: \(jsonString)")
+                print("받은 데이터: \(jsonString)")
             }
             
             do {
@@ -145,6 +153,7 @@ extension ViewController {
                     // TODO: - toast (개선)
                     print("검색 결과가 없습니다.")
                 }
+                self.cache[text] = itunesSearchResult.results
                 callback?(itunesSearchResult.results)
             } catch(let e) {
                 print(e)
