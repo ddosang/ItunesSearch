@@ -11,7 +11,7 @@ class ViewController: BaseViewController {
     
     // MARK: - Data
     
-    private let recentSearchList: [String] = ["taeyeon", "yoona", "wendy", "asepa", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"]
+    private let recentSearchList: [String] = ["taeyeon", "yoona", "wendy", "asepa", "손예진", "김태연", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"]
     private lazy var currentRecentSearchList: [String] = recentSearchList
     
     var trackList: [Track] = [] {
@@ -43,6 +43,7 @@ class ViewController: BaseViewController {
     private let tableView: UITableView = .init().then { v in
         v.backgroundColor = .white
         v.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
+        v.register(TrackTableViewCell.self, forCellReuseIdentifier: TrackTableViewCell.identifier)
     }
 
     override func setup() {
@@ -137,6 +138,7 @@ extension ViewController {
             }
             
             do {
+                // TODO: - queue?
                 let decoder = JSONDecoder()
                 let itunesSearchResult = try decoder.decode(iTunesSearchResult.self, from: data)
                 if itunesSearchResult.resultCount == 0 {
@@ -163,17 +165,19 @@ extension ViewController: UITextFieldDelegate {
         let output = input.replacingCharacters(in: range, with: string)
         print("textField: \(input), current: \(output))")
         
-        currentRecentSearchList = recentSearchList.filter { $0.contains(output) }
+        // TODO: filtering 한국어 처리
+        currentRecentSearchList = output.isEmpty ? recentSearchList : recentSearchList.filter { return $0.contains(output) }
         tableView.reloadData()
         return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text else {
+        guard let text = textField.text, !text.isEmpty else {
             // TODO: - 검색어를 입력해주세요 토스트 (개선)
             return true
         }
         isFocusOnSearchField = false
+        searchField.resignFirstResponder()
         search(with: text) { [weak self] tracks in
             guard let self else { return }
             self.trackList = tracks
@@ -181,8 +185,9 @@ extension ViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         isFocusOnSearchField = true
+        return true
     }
 }
 
@@ -198,8 +203,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         } else {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTableViewCell.identifier) as? RecentSearchTableViewCell {
-                cell.setTitle(trackList[indexPath.row].trackName ?? "")
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TrackTableViewCell.identifier) as? TrackTableViewCell {
+                cell.setTrack(trackList[indexPath.row])
                 return cell
             }
         }
@@ -214,6 +219,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             
             let text = currentRecentSearchList[indexPath.row]
             searchField.text = text
+            searchField.resignFirstResponder()
             search(with: text) { [weak self] tracks in
                 guard let self else { return }
                 self.trackList = tracks
