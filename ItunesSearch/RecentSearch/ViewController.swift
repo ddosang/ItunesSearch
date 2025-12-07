@@ -10,7 +10,13 @@ import UIKit
 class ViewController: BaseViewController {
     
     // MARK: - Data
-    private let recentSearchList: [String] = ["taeyeon", "yoona", "wendy", "asepa", "손예진", "김태연", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"]
+    private var recentSearchList: [String] = ["taeyeon", "yoona", "wendy", "asepa", "손예진", "김태연", "test1", "test2", "test3", "asdf1", "asdf2", "asdf3", "aqwer"] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     private lazy var currentRecentSearchList: [String] = recentSearchList
     
     var trackList: [Track] = [] {
@@ -187,6 +193,11 @@ extension ViewController: UITextFieldDelegate {
         }
         isFocusOnSearchField = false
         searchField.resignFirstResponder()
+        
+        if let textIndex = recentSearchList.firstIndex(of: text) {
+            recentSearchList.remove(at: textIndex)
+        }
+        recentSearchList.insert(text, at: 0)
         search(with: text) { [weak self] tracks in
             guard let self else { return }
             self.trackList = tracks
