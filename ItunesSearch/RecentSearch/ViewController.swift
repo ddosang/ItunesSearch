@@ -106,19 +106,16 @@ extension ViewController {
             return text.replacing("+", with: " ")
         }
         
-        func makeURLString(parameter: [String:String]) -> String {
-            var url: String = "https://itunes.apple.com/search"
-            url += parameter.count > 0 ? "?" : ""
+        func makeURL(text: String, limit: Int) -> URL? {
+            var urlComponents = URLComponents(string: "https://itunes.apple.com/search")
+            urlComponents?.queryItems = [
+                URLQueryItem(name: "country", value: "KR"),
+                URLQueryItem(name: "media", value: "software"),
+                URLQueryItem(name: "limit", value: String(limit)),
+                URLQueryItem(name: "term", value: reformatText(text))
+            ]
             
-            for (idx, key) in parameter.keys.enumerated() {
-                if let value = parameter[key] {
-                    url += "\(idx == 0 ? "" : "&")\(key)=\(value)"
-                }
-            }
-            
-            print("\(#function) = \(url)")
-            
-            return url
+            return urlComponents?.url
         }
         
         if let tracks = cache[text],
@@ -128,15 +125,7 @@ extension ViewController {
             return
         }
         
-        let parameter: [String: String] = [
-//            "media" : "music",
-            "country" : "KR",
-            "limit" : String(limit),
-            "term" : reformatText(text)
-        ]
-        print("parameter = \(parameter)")
-        
-        guard let url = URL(string: makeURLString(parameter: parameter)) else { return }
+        guard let url = makeURL(text: text, limit: limit) else { return }
         let session = URLSession(configuration: .default)
         let dataTask: Void = session.dataTask(with: url) { [weak self] (data: Data?, response: URLResponse?, error: Error?) in
             guard let self else { return }
